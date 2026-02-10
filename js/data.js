@@ -386,14 +386,13 @@ const questionsData = [
     "chapter": 2,
     "text": "Welche Rollen definiert SCRUM und was ist ihre Hauptaufgabe?",
     "image": null,
-    "explanation": "PO = Value (Was). SM = Process (Hindernisse weg). Team = Delivery (Wie). (Folie 137).",
+    "explanation": "Scrum Team, Scrum Master, Produkt Owner.",
     "answersPool": [
-      { "text": "Product Owner (verantwortet 'Was' / ROI), Scrum Master (verantwortet Prozess / 'Servant Leader'), Development Team (verantwortet 'Wie' / Umsetzung).", "isCorrect": true },
-      { "text": "PO: Priorisiert Backlog. SM: Beseitigt Impediments. Team: Liefert Inkrement.", "isCorrect": true },
+      { "text": "Product Owner verantwortet 'Was' / ROI, Scrum Master verantwortet Prozess / 'Servant Leader', Scrum Team verantwortet 'Wie' / Umsetzung.", "isCorrect": true },
       
-      { "text": "Projektleiter (verteilt Aufgaben), Architekt (bestimmt Design), Tester (prüft Qualität).", "isCorrect": false }, // Klassische Rollen, nicht Scrum.
+      { "text": "Projektleiter verteilt Aufgaben, Architekt bestimmt Design, Tester prüft Qualität.", "isCorrect": false }, // Klassische Rollen, nicht Scrum.
       { "text": "Product Owner schreibt Code, Scrum Master testet, Team dokumentiert.", "isCorrect": false },
-      { "text": "Scrum Master ist der Chef und bestimmt Gehalt und Urlaub.", "isCorrect": false },
+      { "text": "Scrum Master ist der Chef und bestimmt alles.", "isCorrect": false },
       { "text": "Das Team bestimmt die Anforderungen, der PO setzt sie um.", "isCorrect": false },
       { "text": "Es gibt nur eine Rolle: Den Scrum Developer.", "isCorrect": false }
     ]
