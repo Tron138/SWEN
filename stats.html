@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistik</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="screen-layout">
+        <div class="header-wrapper">
+            <div class="top-nav">
+                <button class="icon-btn" onclick="window.location.href='dashboard.html'"><i class="fa-solid fa-arrow-left"></i></button>
+                <div class="nav-title">STATISTIK</div>
+                <div style="width:38px"></div>
+            </div>
+        </div>
+
+        <div class="content-scroll">
+            <div class="view-limit">
+                
+                <div class="chart-container">
+                    <div class="pie-chart" id="main-chart">
+                        <div class="pie-hole">
+                            <span id="percent-display" style="font-size: 2rem; font-weight: 800; color:white;">0%</span>
+                            <span style="font-size: 0.8rem; color: #888;">Gelernt</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item"><div class="dot" style="background:var(--success)"></div> Gelernt</div>
+                    <div class="legend-item"><div class="dot" style="background:var(--danger)"></div> Wiederholen</div>
+                    <div class="legend-item"><div class="dot" style="background:#333"></div> Offen</div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:5px;">
+                        <span style="color:#888">Gesamtfortschritt</span>
+                        <span id="progress-text">0 / 0 Fragen</span>
+                    </div>
+                    <div class="stat-progress-container">
+                        <div id="stat-bar-fill" class="stat-progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="stats-grid-modern">
+                    <div class="stat-card-modern">
+                        <i class="fa-solid fa-fire" style="color:var(--warning); font-size:1.5rem; margin-bottom:10px;"></i>
+                        <h3 id="stat-streak">0</h3>
+                        <span>Max Streak</span>
+                    </div>
+
+                    <div class="stat-card-modern">
+                        <i class="fa-solid fa-graduation-cap" style="color:var(--primary); font-size:1.5rem; margin-bottom:10px;"></i>
+                        <h3 id="stat-exams">0</h3>
+                        <span>Bestanden</span>
+                    </div>
+
+                    <div class="stat-card-modern">
+                        <i class="fa-solid fa-rotate-right" style="color:var(--danger); font-size:1.5rem; margin-bottom:10px;"></i>
+                        <h3 id="stat-repeat">0</h3>
+                        <span>Wiederholen</span>
+                    </div>
+
+                    <div class="stat-card-modern">
+                        <i class="fa-solid fa-layer-group" style="color:#555; font-size:1.5rem; margin-bottom:10px;"></i>
+                        <h3 id="stat-open">0</h3>
+                        <span>Noch Offen</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/stats.js"></script>
+</body>
+</html>

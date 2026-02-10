@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-frame">
+        <div class="top-bar">
+            <span>SWEN ist Krise</b></span>
+            <button onclick="window.location.href='settings.html'" class="icon-btn"><i class="fa-solid fa-gear"></i></button>
+        </div>
+
+        <div class="content-scroll">
+            <h2 style="margin: 20px 0 10px 0;">Dein Training</h2>
+            
+            <div class="dashboard-grid">
+                <div class="dash-card" onclick="window.location.href='lernen.html?mode=themen'">
+                    <i class="fa-solid fa-book-open" style="font-size: 1.8rem; color: var(--primary); margin-right: 15px;"></i>
+                    <div>
+                        <h3>Themen</h3>
+                        <span class="subtext">Kapitelweise lernen</span>
+                    </div>
+                </div>
+
+                <div class="dash-card" onclick="window.location.href='lernen.html?mode=random'">
+                    <i class="fa-solid fa-shuffle" style="font-size: 1.8rem; color: #BF5AF2; margin-right: 15px;"></i>
+                    <div>
+                        <h3>Zufall</h3>
+                        <span class="subtext">Alles gemischt</span>
+                    </div>
+                </div>
+
+                <div class="dash-card" onclick="window.location.href='lernen.html?mode=exam'">
+                    <i class="fa-solid fa-stopwatch" style="font-size: 1.8rem; color: var(--danger); margin-right: 15px;"></i>
+                    <div>
+                        <h3>Prüfung</h3>
+                        <span class="subtext">20 Fragen, benotet</span>
+                    </div>
+                </div>
+
+                <div class="dash-card" onclick="window.location.href='stats.html'">
+                    <i class="fa-solid fa-chart-pie" style="font-size: 1.8rem; color: var(--success); margin-right: 15px;"></i>
+                    <div>
+                        <h3>Statistik</h3>
+                        <span class="subtext">Dein Fortschritt</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/core.js"></script>
+    <script>Core.checkAuth();</script>
+</body>
+</html>

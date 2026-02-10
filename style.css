@@ -1,0 +1,325 @@
+:root {
+    --bg-dark: #000000;
+    --bg-card: #1C1C1E;
+    --bg-card-hover: #2C2C2E;
+    --primary: #0A84FF;
+    --danger: #FF453A;
+    --success: #30D158;
+    --warning: #FF9F0A;
+    --text: #FFFFFF;
+    --text-muted: #8E8E93;
+    --border: #333;
+    --font: 'Inter', sans-serif;
+    --header-height: 64px;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+    margin: 0; padding: 0;
+    background: var(--bg-dark);
+    color: var(--text);
+    font-family: var(--font);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* --- BASIS LAYOUT --- */
+.screen-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.content-scroll {
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+    /* Wichtig: Padding ist jetzt im inneren Container */
+}
+
+/* Neuer Container für Dashboard/Settings/Stats */
+/* Hält den Inhalt mittig und hübsch, aber Hintergrund bleibt voll */
+.view-limit {
+    width: 100%;
+    max-width: 900px; /* Nicht zu breit am PC */
+    margin: 0 auto;   /* Zentriert */
+    padding: 20px;    /* Abstand zum Rand */
+}
+
+/* --- HEADER (Fixiert) --- */
+.header-wrapper {
+    background: rgba(20, 20, 20, 0.95);
+    border-bottom: 1px solid var(--border);
+    height: var(--header-height);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.top-nav {
+    height: 100%;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; /* Links / Rechts Trennung */
+    padding: 0 20px;
+}
+
+.progress-track {
+    height: 4px; background: #222; width: 100%;
+    position: absolute; top: 0; left: 0;
+}
+.progress-fill { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s ease; }
+
+/* Header Gruppen */
+.nav-left { display: flex; align-items: center; gap: 20px; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+
+.nav-title { font-weight: 700; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; }
+.streak-plain { color: var(--warning); font-weight: 800; display: flex; gap: 6px; align-items: center; font-size: 1.1rem; }
+
+.icon-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.05); border: 1px solid #333; color: white;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.2s;
+}
+.icon-btn:hover { background: #444; border-color: #666; }
+
+/* Stats Oben Rechts */
+.stats-compact { display: flex; gap: 15px; font-size: 0.9rem; font-weight: 600; }
+.stat-item { display: flex; align-items: center; gap: 6px; }
+
+
+/* --- DASHBOARD DESIGN (Restored) --- */
+.dashboard-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive Kacheln */
+    padding-bottom: 40px;
+}
+
+.dash-card {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    display: flex; align-items: center; gap: 20px;
+}
+.dash-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-4px);
+    border-color: #666;
+}
+.dash-icon { font-size: 2rem; width: 50px; text-align: center; }
+.dash-text h3 { margin: 0; font-size: 1.2rem; }
+.subtext { margin-top: 5px; color: var(--text-muted); font-size: 0.9rem; display: block; }
+
+
+/* --- SETTINGS DESIGN (Restored) --- */
+.settings-group {
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+.settings-item {
+    padding: 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.settings-item:last-child { border-bottom: none; }
+
+/* Toggle Switch */
+.switch { position: relative; display: inline-block; width: 52px; height: 32px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 24px; width: 24px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--success); }
+input:checked + .slider:before { transform: translateX(20px); }
+
+.danger-zone {
+    border: 1px solid var(--danger);
+    background: rgba(255, 69, 58, 0.1);
+    padding: 25px;
+    border-radius: 16px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+
+/* --- LERNEN SCREEN (Full Focus) --- */
+.learning-content {
+    flex: 1;
+    overflow-y: auto;
+    /* Zentriert den Inhalt (Frage) */
+    display: flex; flex-direction: column; align-items: center; 
+    padding: 20px;
+}
+
+.center-wrapper {
+    width: 100%; max-width: 750px; text-align: center;
+    margin-top: 40px;
+    margin-bottom: auto; /* Wichtig: Drückt Antworten nach unten */
+}
+
+.question-big {
+    font-size: 1.6rem; font-weight: 700; line-height: 1.4; margin-bottom: 30px;
+}
+.image-box img { max-width: 100%; max-height: 350px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
+
+.explanation-card {
+    background: #111; border-left: 4px solid var(--primary);
+    border-radius: 8px; padding: 20px; text-align: left; margin-top: 30px;
+    animation: fadeIn 0.3s;
+}
+#explanation-text { color: #ccc; line-height: 1.5; font-size: 1rem; }
+
+
+/* --- ANTWORTEN --- */
+.answers-stack {
+    width: 100%; max-width: 750px;
+    display: flex; flex-direction: column; gap: 15px;
+    padding-bottom: 20px;
+    margin-top: 40px;
+}
+
+.answer-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-align: center;
+    min-height: 65px;
+    display: flex; align-items: center; justify-content: center;
+}
+.answer-card:hover { background: var(--bg-card-hover); border-color: #777; }
+.answer-card.selected { border-color: var(--primary); background: rgba(10, 132, 255, 0.15); font-weight: 600; }
+.answer-card.correct { border-color: var(--success); background: rgba(48, 209, 88, 0.15); }
+.answer-card.wrong { border-color: var(--danger); background: rgba(255, 69, 58, 0.15); opacity: 0.6; }
+
+/* PC Tweak: Größere Buttons */
+@media (min-width: 800px) {
+    .question-big { font-size: 2.2rem; }
+    .answer-card { padding: 30px; font-size: 1.3rem; min-height: 90px; border-width: 2px; }
+}
+
+
+/* --- FOOTER --- */
+.action-footer {
+    padding: 20px; background: rgba(15, 15, 15, 0.95);
+    border-top: 1px solid var(--border); display: flex; justify-content: center; flex-shrink: 0;
+}
+.btn-main {
+    background: var(--primary); color: white; border: none;
+    width: 100%; max-width: 750px;
+    padding: 18px; border-radius: 14px;
+    font-size: 1.1rem; font-weight: 700; cursor: pointer;
+}
+.btn-main:active { transform: scale(0.98); }
+
+/* --- LOGIN --- */
+.login-container {
+    height: 100%; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; padding: 20px;
+    background: radial-gradient(circle at top, #222, #000);
+}
+.login-container input {
+    background: var(--bg-card); border: 1px solid var(--border);
+    color: white; padding: 18px; border-radius: 12px;
+    width: 100%; max-width: 400px; margin-bottom: 20px;
+    text-align: center; font-size: 1.1rem; outline: none;
+}
+
+/* Utils */
+.hidden { display: none !important; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* =========================================
+   NEU: ERWEITERTE STATISTIKEN & MODALS
+   ========================================= */
+
+/* --- Besseres Statistik Grid --- */
+.stats-grid-modern {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 Spalten */
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.stat-card-modern {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.stat-card-modern h3 { font-size: 2rem; margin: 0; font-weight: 800; color: white; }
+.stat-card-modern span { font-size: 0.85rem; color: var(--text-muted); margin-top: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Progress Bar im Stat Screen */
+.stat-progress-container {
+    width: 100%; background: #222; height: 10px; border-radius: 5px; margin-top: 20px; overflow: hidden;
+}
+.stat-progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 1s ease; }
+
+
+/* --- PRÜFUNGS ERGEBNIS MODAL (Overlay) --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Dunkler Hintergrund */
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+
+.result-card {
+    background: #111;
+    border: 1px solid var(--border);
+    width: 90%; max-width: 400px;
+    border-radius: 24px;
+    padding: 30px;
+    text-align: center;
+    transform: scale(0.9); transition: transform 0.3s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+.modal-overlay.active .result-card { transform: scale(1); }
+
+/* Ergebnis Kreis (Donut Chart) */
+.result-circle {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: conic-gradient(var(--border) 0% 100%); /* Startfarbe */
+    margin: 0 auto 20px auto;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+}
+.result-inner {
+    width: 130px; height: 130px;
+    background: #111; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+.grade-display { font-size: 3rem; font-weight: 800; line-height: 1; }
+.grade-label { font-size: 0.9rem; color: #888; margin-top: 5px; }
+
+.result-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
+.result-msg { color: #aaa; margin-bottom: 25px; font-size: 1rem; }
+
+/* Farben für Noten */
+.grade-good { color: var(--primary); } /* Blau */
+.grade-bad { color: var(--danger); }   /* Rot */

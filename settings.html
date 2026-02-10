@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einstellungen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <div class="top-bar">
+             <button class="icon-btn" onclick="saveAndExit()"><i class="fa-solid fa-arrow-left"></i></button>
+             <div style="font-weight: 600;">EINSTELLUNGEN</div>
+             <div style="width: 40px;"></div> </div>
+        
+        <div class="content-scroll">
+            <h3 style="margin: 20px 0 10px 10px; color: var(--text-sec); font-size: 0.9rem; text-transform: uppercase;">Kapitel Filter</h3>
+            
+            <div id="settings-list" class="settings-group">
+                </div>
+
+            <h3 style="margin: 30px 0 10px 10px; color: var(--danger); font-size: 0.9rem; text-transform: uppercase;">Daten verwalten</h3>
+            
+            <div class="danger-zone">
+                <span class="danger-text">Dies löscht deinen gesamten Lernfortschritt unwiderruflich.</span>
+                <button class="btn-main" style="background:var(--danger);" onclick="resetApp()">
+                    <i class="fa-solid fa-trash"></i> App Zurücksetzen
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/data.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

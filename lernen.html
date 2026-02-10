@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lernen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="screen-layout">
+        
+        <div class="header-wrapper">
+            <div class="progress-track">
+                <div id="progress-bar" class="progress-fill"></div>
+            </div>
+
+            <div class="top-nav">
+                
+                <div class="nav-left">
+    <button class="icon-btn" onclick="window.location.href='dashboard.html'" style="margin-right:10px;">
+        <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    
+    <div style="display:flex; flex-direction:column; justify-content:center;">
+        <div class="nav-title" id="mode-display">LERNEN</div>
+        
+        <div id="chapter-info" style="font-size: 0.75rem; color: #888; margin-top: 2px;">
+            Kapitel <span id="chap-num">1</span> 
+            
+            <span id="chap-extra-info">
+                <span style="opacity:0.5; margin:0 4px;">•</span> 
+                Noch <span id="chap-remaining">0</span>
+            </span>
+        </div>
+    </div>
+
+    <div id="streak-display" class="streak-plain" style="margin-left: 15px;">
+        <i class="fa-solid fa-fire"></i> <span id="streak-count">0</span>
+    </div>
+</div>
+
+                <div class="nav-right">
+                    
+                    <div class="stats-compact" id="stats-bar">
+                        <div class="stat-item" style="color:#888" title="Noch offen">
+                            <i class="fa-solid fa-layer-group"></i> <span id="count-open">0</span>
+                        </div>
+                        <div class="stat-item" style="color:var(--danger)" title="Falsch in dieser Runde">
+                            <i class="fa-solid fa-skull"></i> <span id="count-wrong">0</span>
+                        </div>
+                         <div class="stat-item" style="color:var(--warning)" title="Wiederholung">
+                            <i class="fa-solid fa-rotate-right"></i> <span id="count-repeat">0</span>
+                        </div>
+                        <div class="stat-item" style="color:var(--success)" title="Gelernt">
+                            <i class="fa-solid fa-check"></i> <span id="count-learned">0</span>
+                        </div>
+                    </div>
+
+                    <button class="icon-btn" onclick="window.location.href='dashboard.html'">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="learning-content">
+            
+            <div class="center-wrapper">
+                <div id="question-text" class="question-big">Frage lädt...</div>
+                
+                <div id="question-image" class="image-box hidden"></div>
+
+                <div id="explanation-area" class="explanation-card hidden">
+                    <div class="exp-head">Erklärung</div>
+                    <div id="explanation-text">...</div>
+                </div>
+            </div>
+
+            <div id="answers-grid" class="answers-stack">
+                </div>
+
+        </div>
+
+        <div class="action-footer">
+            <button id="btn-action" class="btn-main">Auflösen</button>
+        </div>
+
+    </div>
+    <div id="result-modal" class="modal-overlay">
+        <div class="result-card">
+            <div id="result-chart" class="result-circle">
+                <div class="result-inner">
+                    <div id="result-grade" class="grade-display">0.0</div>
+                    <div class="grade-label">Note</div>
+                </div>
+            </div>
+            
+            <div id="result-title" class="result-title">TITEL</div>
+            <div id="result-msg" class="result-msg">Text</div>
+            
+            <button class="btn-main" onclick="window.location.href='dashboard.html'">Zurück zum Dashboard</button>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/engine.js"></script>
+</body>
+</html>
