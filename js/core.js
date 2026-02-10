@@ -1,7 +1,7 @@
 /* js/core.js - Global State Management */
 
 const CONFIG = {
-    password: "start",
+    password: "M106",
     storageKey: "fahrschule_pro_final"
 };
 
