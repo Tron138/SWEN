@@ -176,29 +176,44 @@ function loadQuestion() {
     const grid = document.getElementById('answers-grid');
     grid.innerHTML = "";
 
-    // --- NEUE LOGIK: Alle Richtigen + Auffüllen mit Falschen ---
-    const allCorrect = currentQuestion.answersPool.filter(a => a.isCorrect);
-    const allWrong = currentQuestion.answersPool.filter(a => !a.isCorrect);
+    // --- NEUE LOGIK: Zufällige Anzahl an Richtigen ---
     
-    // Wir nehmen ALLE richtigen Antworten, die die JSON bietet
-    let pool = [...allCorrect];
+    // 1. Alle verfügbaren Antworten sortieren
+    const allAvailableCorrect = currentQuestion.answersPool.filter(a => a.isCorrect);
+    const allAvailableWrong = currentQuestion.answersPool.filter(a => !a.isCorrect);
 
-    // Wir füllen auf 4 auf (oder nehmen mindestens 2 Falsche, wenn schon viele Richtige da sind)
-    // Ziel: Mindestens 4 Karten insgesamt.
-    let slotsLeft = 4 - pool.length;
-    if (slotsLeft < 1) slotsLeft = 1; // Immer mindestens eine falsche Antwort (wenn möglich)
+    // 2. Würfeln: Wie viele Richtige wollen wir anzeigen?
+    // Minimum: 1
+    // Maximum: So viele wie da sind (bei dir meistens 2)
+    // Das sorgt für Abwechslung!
+    const maxPossible = allAvailableCorrect.length;
+    // Zufallszahl zwischen 1 und maxPossible
+    const numCorrectToUse = Math.floor(Math.random() * maxPossible) + 1;
 
-    const mixedWrong = allWrong.sort(() => 0.5 - Math.random()).slice(0, slotsLeft);
+    // 3. Die gewürfelte Anzahl an Richtigen auswählen
+    const selectedCorrect = allAvailableCorrect
+                            .sort(() => 0.5 - Math.random()) // Mischen
+                            .slice(0, numCorrectToUse);      // Nur die ersten X nehmen
+
+    // 4. Den Rest auf 4 Karten mit Falschen auffüllen
+    let slotsNeeded = 4 - selectedCorrect.length;
     
-    // Alles zusammenmischen
-    currentAnswers = [...pool, ...mixedWrong].sort(() => 0.5 - Math.random());
+    // Falls wir mal extrem viele Richtige haben (mehr als 4), nehmen wir keine Falschen
+    if (slotsNeeded < 0) slotsNeeded = 0; 
+    
+    // Wenn nicht genug falsche da sind, nehmen wir halt alle die da sind
+    const selectedWrong = allAvailableWrong
+                          .sort(() => 0.5 - Math.random())
+                          .slice(0, slotsNeeded);
+
+    // 5. Alles zusammenmischen für das Grid
+    currentAnswers = [...selectedCorrect, ...selectedWrong].sort(() => 0.5 - Math.random());
 
     // Karten rendern
     currentAnswers.forEach((ans, idx) => {
         const div = document.createElement('div');
         div.className = 'answer-card';
         div.innerText = ans.text;
-        // WICHTIG: Kein Parameter mehr für selectAnswer nötig, wir togglen das Element selbst
         div.onclick = () => selectAnswer(div);
         grid.appendChild(div);
     });
