@@ -746,8 +746,8 @@ const questionsData = [
     "image": null,
     "explanation": "Card (Physischer Träger), Conversation (Gespräch zur Klärung), Confirmation (Akzeptanzkriterien). (Folie 220/221).",
     "answersPool": [
-      { "text": "Card (Karte), Conversation (Gespräch), Confirmation (Bestätigung).", "isCorrect": true },
-      { "text": "Karte (Placeholder), Konversation (Details klären), Bestätigung (Akzeptanztests).", "isCorrect": true },
+      { "text": "Card , Conversation, Confirmation. ", "isCorrect": true },
+      { "text": "Karte, Konversation , Bestätigung.", "isCorrect": true },
       
       { "text": "Code, Comment, Commit.", "isCorrect": false }, // Entwickler-Alltag.
       { "text": "Customer, Contract, Cost.", "isCorrect": false },
