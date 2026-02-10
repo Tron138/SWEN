@@ -20,7 +20,11 @@ body {
     background: var(--bg-dark);
     color: var(--text);
     font-family: var(--font);
-    height: 100vh;
+    
+    /* FIX: dvh statt vh passt sich an mobile Leisten an */
+    height: 100vh;      /* Fallback für alte Handys */
+    height: 100dvh;     /* Modern: Dynamic Viewport Height */
+    
     width: 100vw;
     overflow: hidden;
 }
@@ -213,10 +217,22 @@ input:checked + .slider:before { transform: translateX(20px); }
 }
 
 
-/* --- FOOTER --- */
 .action-footer {
-    padding: 20px; background: rgba(15, 15, 15, 0.95);
-    border-top: 1px solid var(--border); display: flex; justify-content: center; flex-shrink: 0;
+    padding: 20px; 
+    
+    /* FIX: Hintergrund sicherstellen, damit nichts durchscheint */
+    background: var(--bg-dark); 
+    border-top: 1px solid var(--border); 
+    display: flex; 
+    justify-content: center; 
+    flex-shrink: 0;
+    
+    /* FIX: Extra Abstand unten für Handy-Leisten (Home-Bar) */
+    padding-bottom: calc(30px + env(safe-area-inset-bottom)); 
+    
+    /* Sicherstellen, dass es über allem anderen liegt */
+    position: relative; 
+    z-index: 50;
 }
 .btn-main {
     background: var(--primary); color: white; border: none;

@@ -148,14 +148,13 @@ function updateUI() {
 
 /* --- LOGIK: FRAGE LADEN --- */
 function loadQuestion() {
-    // Ende erreicht?
     if (currentIndex >= queue.length) {
         finishSession();
         return;
     }
 
     currentQuestion = queue[currentIndex];
-    updateUI(); // Stats & Kapitel aktualisieren
+    updateUI(); 
 
     isResolved = false;
     
@@ -164,7 +163,7 @@ function loadQuestion() {
     const btn = document.getElementById('btn-action');
     btn.innerText = (mode === 'exam') ? "Nächste Frage" : "Auflösen";
     
-    // Frage Text & Bild
+    // Text & Bild
     document.getElementById('question-text').innerText = currentQuestion.text;
     const imgDiv = document.getElementById('question-image');
     if(currentQuestion.image) {
@@ -174,34 +173,43 @@ function loadQuestion() {
         imgDiv.classList.add('hidden'); 
     }
 
-    // Antworten generieren & mischen
     const grid = document.getElementById('answers-grid');
     grid.innerHTML = "";
 
-    const correct = currentQuestion.answersPool.filter(a => a.isCorrect);
-    const wrong = currentQuestion.answersPool.filter(a => !a.isCorrect);
+    // --- NEUE LOGIK: Alle Richtigen + Auffüllen mit Falschen ---
+    const allCorrect = currentQuestion.answersPool.filter(a => a.isCorrect);
+    const allWrong = currentQuestion.answersPool.filter(a => !a.isCorrect);
     
-    // Fallback: Falls Pool Fehler hat, nimm Dummy
-    const selCorrect = correct[0] || {text: "Fehler in Daten", isCorrect: true};
-    const selWrong = wrong.slice(0, 3); // Nimm 3 Falsche
-    
-    let mix = [selCorrect, ...selWrong];
-    currentAnswers = mix.sort(() => 0.5 - Math.random());
+    // Wir nehmen ALLE richtigen Antworten, die die JSON bietet
+    let pool = [...allCorrect];
 
-    // Buttons rendern
+    // Wir füllen auf 4 auf (oder nehmen mindestens 2 Falsche, wenn schon viele Richtige da sind)
+    // Ziel: Mindestens 4 Karten insgesamt.
+    let slotsLeft = 4 - pool.length;
+    if (slotsLeft < 1) slotsLeft = 1; // Immer mindestens eine falsche Antwort (wenn möglich)
+
+    const mixedWrong = allWrong.sort(() => 0.5 - Math.random()).slice(0, slotsLeft);
+    
+    // Alles zusammenmischen
+    currentAnswers = [...pool, ...mixedWrong].sort(() => 0.5 - Math.random());
+
+    // Karten rendern
     currentAnswers.forEach((ans, idx) => {
         const div = document.createElement('div');
         div.className = 'answer-card';
         div.innerText = ans.text;
-        div.onclick = () => selectAnswer(idx, div);
+        // WICHTIG: Kein Parameter mehr für selectAnswer nötig, wir togglen das Element selbst
+        div.onclick = () => selectAnswer(div);
         grid.appendChild(div);
     });
 }
 
-function selectAnswer(idx, div) {
-    if (isResolved) return; // Gesperrt wenn schon aufgelöst
-    document.querySelectorAll('.answer-card').forEach(d => d.classList.remove('selected'));
-    div.classList.add('selected');
+function selectAnswer(div) {
+    if (isResolved) return; // Sperre nach Auflösung
+    
+    // Einfaches Umschalten (Toggle) der Klasse 'selected'
+    // Erlaubt mehrere Auswahlen gleichzeitig
+    div.classList.toggle('selected');
 }
 
 /* --- LOGIK: BUTTON KLICK --- */
@@ -219,22 +227,37 @@ document.getElementById('btn-action').addEventListener('click', () => {
 });
 
 function resolve() {
-    const selected = document.querySelector('.answer-card.selected');
-    if(!selected) { alert("Bitte wähle eine Antwort!"); return; }
+    const selectedDivs = document.querySelectorAll('.answer-card.selected');
+    if(selectedDivs.length === 0) { alert("Bitte wähle mindestens eine Antwort!"); return; }
 
     const cards = document.querySelectorAll('.answer-card');
-    const selIdx = Array.from(cards).indexOf(selected);
-    const isCorrect = currentAnswers[selIdx].isCorrect;
+    let mistakeMade = false;
+    let correctFoundCount = 0;
+    const totalCorrectInGame = currentAnswers.filter(a => a.isCorrect).length;
 
-    // Farben setzen
+    // Auswertungsschleife
     cards.forEach((card, i) => {
-        if(currentAnswers[i].isCorrect) card.classList.add('correct'); // Grün
-        else if(i === selIdx) card.classList.add('wrong'); // Rot (nur wenn gewählt)
+        const isSelected = card.classList.contains('selected');
+        const isActuallyCorrect = currentAnswers[i].isCorrect;
+
+        if (isActuallyCorrect) {
+            // Richtig: Immer Grün markieren (damit man sieht, was alles richtig war)
+            card.classList.add('correct');
+            if (isSelected) correctFoundCount++;
+        } else {
+            // Falsch: Rot markieren, aber NUR wenn fälschlicherweise ausgewählt
+            if (isSelected) {
+                card.classList.add('wrong');
+                mistakeMade = true;
+            }
+        }
     });
 
-    // Stats & Speicher Logik
-    if(isCorrect) {
-        // Wenn richtig: Status 'learned'
+    // Entscheidung: Alles richtig gemacht?
+    // Man gewinnt nur, wenn man KEINEN Fehler gemacht hat UND ALLE Richtigen gefunden hat.
+    const everythingCorrect = !mistakeMade && (correctFoundCount === totalCorrectInGame);
+
+    if(everythingCorrect) {
         Core.data.progress[currentQuestion.id] = 'learned';
         Core.data.stats.currentStreak++;
         if(Core.data.stats.currentStreak > Core.data.stats.maxStreak) {
@@ -242,15 +265,13 @@ function resolve() {
         }
         Core.data.stats.totalLearned++;
     } else {
-        // Wenn falsch: Status 'repeat'
         Core.data.progress[currentQuestion.id] = 'repeat';
         Core.data.stats.currentStreak = 0;
         sessionWrongCount++;
     }
-    Core.save(); // Sofort speichern
-    updateUI();  // Icons sofort updaten
+    Core.save();
+    updateUI(); 
 
-    // Erklärung zeigen
     document.getElementById('explanation-text').innerText = currentQuestion.explanation;
     document.getElementById('explanation-area').classList.remove('hidden');
     
