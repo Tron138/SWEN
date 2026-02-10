@@ -339,3 +339,28 @@ input:checked + .slider:before { transform: translateX(20px); }
 /* Farben für Noten */
 .grade-good { color: var(--primary); } /* Blau */
 .grade-bad { color: var(--danger); }   /* Rot */
+
+/* PDF Button im Erklärungsbereich */
+.pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #2c2c2e; /* Dunkles Grau */
+    color: var(--primary); /* Dein Blau */
+    border: 1px solid var(--primary);
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.pdf-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.pdf-btn i {
+    font-size: 1.1rem;
+}

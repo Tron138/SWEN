@@ -272,7 +272,26 @@ function resolve() {
     Core.save();
     updateUI(); 
 
-    document.getElementById('explanation-text').innerText = currentQuestion.explanation;
+    // --- ÄNDERUNG START: PDF Mapping nutzen ---
+    const explanationDiv = document.getElementById('explanation-text');
+    let htmlContent = currentQuestion.explanation;
+
+    // Wir prüfen, ob die Variable pdfMap existiert UND ob es einen Eintrag für die ID gibt
+    if (typeof pdfMap !== 'undefined' && pdfMap[currentQuestion.id]) {
+        const info = pdfMap[currentQuestion.id];
+        
+        // Button bauen
+        htmlContent += `
+            <div style="margin-top: 15px;">
+                <a href="pdfs/${info.file}#page=${info.page}" target="_blank" class="pdf-btn">
+                    <i class="fa-solid fa-file-pdf"></i> Im Skript nachlesen (S. ${info.page})
+                </a>
+            </div>
+        `;
+    }
+    // --- ÄNDERUNG ENDE ---
+
+    explanationDiv.innerHTML = htmlContent;
     document.getElementById('explanation-area').classList.remove('hidden');
     
     isResolved = true;
