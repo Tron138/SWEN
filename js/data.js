@@ -1662,7 +1662,7 @@ const questionsData = [
     "image": null,
     "explanation": "Falsch. Sie wächst quadratisch (n*(n-1)/2). Das ist der Grund für Kommunikationsprobleme in großen Teams. (Frage 119).",
     "answersPool": [
-      { "text": "Falsch (wächst quadratisch).", "isCorrect": true },
+      { "text": "Falsch", "isCorrect": true },
       { "text": "Wahr.", "isCorrect": false }
     ]
   },
@@ -1671,10 +1671,10 @@ const questionsData = [
     "chapter": 9,
     "text": "Wahr oder Falsch: Wenige geschickt ausgewählte Begeisterungsanforderungen können fehlende Basisanforderungen ausgleichen.",
     "image": null,
-    "explanation": "Falsch. Basisanforderungen sind 'Muss'-Kriterien. Wenn sie fehlen, ist der Kunde unzufrieden, egal wie toll die Extras sind (Kano-Modell). (Frage 121).",
+    "explanation": "hat jemand in der klausur so beantwortet und volle punktzahl bekommen",
     "answersPool": [
-      { "text": "Falsch.", "isCorrect": true },
-      { "text": "Wahr.", "isCorrect": false }
+      { "text": "Falsch.", "isCorrect": false },
+      { "text": "Wahr.", "isCorrect": true }
     ]
   },
   {
@@ -1684,7 +1684,7 @@ const questionsData = [
     "image": null,
     "explanation": "Wahr (im agilen Kontext 'Last Responsible Moment'), um Flexibilität zu wahren. ABER: Fundamentale Entscheidungen müssen früh stehen. Die PDF-Frage zielt oft auf 'Falsch' bei klassischer Lehre oder 'Wahr' bei moderner. Kontext: Architektur ist schwer zu ändern -> Früh. Details -> Spät. (Frage 129).",
     "answersPool": [
-      { "text": "Falsch (Fundamentale Entscheidungen sollten früh stehen, da Änderungen teuer sind).", "isCorrect": true },
+      { "text": "Falsch", "isCorrect": true },
       { "text": "Wahr.", "isCorrect": false }
     ]
   },
@@ -1751,8 +1751,8 @@ const questionsData = [
     "image": null,
     "explanation": "Falsch (zu niedrig geschätzt). Die Kosten sind oft um den Faktor 100 bis 1000 höher (exponentieller Anstieg), nicht nur 2-5 fach.",
     "answersPool": [
-      { "text": "Falsch (Die Kosten sind oft um Faktor 100+ höher).", "isCorrect": true },
-      { "text": "Wahr.", "isCorrect": false }
+      { "text": "Falsch", "isCorrect": false },
+      { "text": "Wahr.", "isCorrect": true }
     ]
   },
   {
