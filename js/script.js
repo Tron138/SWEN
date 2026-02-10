@@ -2,7 +2,7 @@
 
 const CONFIG = {
     password: "M106",
-    storageKey: "fahrschule_data_final_v1"
+    storageKey: "broKeinPlan"
 };
 
 /* Standard-Datenstruktur */
